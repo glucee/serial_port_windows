@@ -127,11 +127,11 @@ int SerialPort::resetTimeouts() {
 	timeouts.ReadTotalTimeoutMultiplier = 0;
 
 	/*
-	DriverLog("ReadIntervalTimeout: %d\n", timeouts.ReadIntervalTimeout);
-	DriverLog("ReadTotalTimeoutMultiplier: %d\n", timeouts.ReadTotalTimeoutMultiplier);
-	DriverLog("ReadTotalTimeoutConstant: %d\n", timeouts.ReadTotalTimeoutConstant);
-	DriverLog("WriteTotalTimeoutMultiplier: %d\n", timeouts.WriteTotalTimeoutMultiplier);
-	DriverLog("WriteTotalTimeoutConstant: %d\n", timeouts.WriteTotalTimeoutConstant);
+	printf("ReadIntervalTimeout: %d\n", timeouts.ReadIntervalTimeout);
+	printf("ReadTotalTimeoutMultiplier: %d\n", timeouts.ReadTotalTimeoutMultiplier);
+	printf("ReadTotalTimeoutConstant: %d\n", timeouts.ReadTotalTimeoutConstant);
+	printf("WriteTotalTimeoutMultiplier: %d\n", timeouts.WriteTotalTimeoutMultiplier);
+	printf("WriteTotalTimeoutConstant: %d\n", timeouts.WriteTotalTimeoutConstant);
 	*/
 
 	if (!(SetCommTimeouts(portHandle, &timeouts))) {
@@ -175,14 +175,14 @@ int SerialPort::read(uint8_t* buffer, uint8_t buffer_size) {
 			return bytesRead;
 		}
 	}
-	//DriverLog("Read %d bytes\n", bytesRead);
+	//printf("Read %d bytes\n", bytesRead);
 
 	return bytesRead;
 }
 
 int SerialPort::write(uint8_t *buffer, uint8_t buffer_size) {
 	DWORD bytesWritten = 0;
-	//DriverLog("Clearing previous errors before writing\n");
+	//printf("Clearing previous errors before writing\n");
 	ClearCommError(portHandle, &last_error, &status);
 	if (!WriteFile(portHandle, buffer, buffer_size, &bytesWritten, NULL)) {
 		DWORD dw = GetLastError();
